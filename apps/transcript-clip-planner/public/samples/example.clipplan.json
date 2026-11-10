@@ -1,0 +1,180 @@
+{
+  "app": "transcript-clip-planner",
+  "version": 1,
+  "title": "A smaller studio, a better workflow",
+  "source": {
+    "filename": "a-smaller-studio.srt",
+    "format": "srt",
+    "cues": [
+      {
+        "id": "cue-0001",
+        "startMs": 0,
+        "endMs": 7400,
+        "text": "Interviewer: You went from twelve projects at once to four. What changed?",
+        "rawText": "Interviewer: You went from twelve projects at once to four. What changed?"
+      },
+      {
+        "id": "cue-0002",
+        "startMs": 8000,
+        "endMs": 16800,
+        "text": "Maya: We were busy every day, but we kept finishing the week with nothing actually finished.",
+        "rawText": "Maya: We were busy every day, but we kept finishing the week with nothing actually finished."
+      },
+      {
+        "id": "cue-0003",
+        "startMs": 17200,
+        "endMs": 26600,
+        "text": "Maya: There were six different spreadsheets, three group chats, and a lot of people asking who had the latest version.",
+        "rawText": "Maya: There were six different spreadsheets, three group chats, and a lot of people asking who had the latest version."
+      },
+      {
+        "id": "cue-0004",
+        "startMs": 27000,
+        "endMs": 35800,
+        "text": "Maya: I thought we needed more people. What we really needed was fewer things open at the same time.",
+        "rawText": "Maya: I thought we needed more people. What we really needed was fewer things open at the same time."
+      },
+      {
+        "id": "cue-0005",
+        "startMs": 36200,
+        "endMs": 43000,
+        "text": "Interviewer: That sounds simple. Was it an easy decision to make?",
+        "rawText": "Interviewer: That sounds simple. Was it an easy decision to make?"
+      },
+      {
+        "id": "cue-0006",
+        "startMs": 43500,
+        "endMs": 53000,
+        "text": "Maya: Not at all. Saying yes feels productive. Every new project looks like progress when it arrives in your inbox.",
+        "rawText": "Maya: Not at all. Saying yes feels productive. Every new project looks like progress when it arrives in your inbox."
+      },
+      {
+        "id": "cue-0007",
+        "startMs": 53400,
+        "endMs": 63200,
+        "text": "Maya: But the cost shows up later. You switch context, someone waits for feedback, and a small question holds up a whole day.",
+        "rawText": "Maya: But the cost shows up later. You switch context, someone waits for feedback, and a small question holds up a whole day."
+      },
+      {
+        "id": "cue-0008",
+        "startMs": 63800,
+        "endMs": 72500,
+        "text": "Maya: So we made one rule. A project only starts when we have the space to finish it.",
+        "rawText": "Maya: So we made one rule. A project only starts when we have the space to finish it."
+      },
+      {
+        "id": "cue-0009",
+        "startMs": 73000,
+        "endMs": 80500,
+        "text": "Interviewer: What did that look like on an ordinary Monday?",
+        "rawText": "Interviewer: What did that look like on an ordinary Monday?"
+      },
+      {
+        "id": "cue-0010",
+        "startMs": 81000,
+        "endMs": 90500,
+        "text": "Maya: We put four cards on a wall. Each card had one owner, one next decision, and a definition of done.",
+        "rawText": "Maya: We put four cards on a wall. Each card had one owner, one next decision, and a definition of done."
+      },
+      {
+        "id": "cue-0011",
+        "startMs": 91000,
+        "endMs": 100200,
+        "text": "Maya: If a new request came in, we could point to the wall and ask which existing promise it should replace.",
+        "rawText": "Maya: If a new request came in, we could point to the wall and ask which existing promise it should replace."
+      },
+      {
+        "id": "cue-0012",
+        "startMs": 100800,
+        "endMs": 109400,
+        "text": "Maya: That question changed the conversation. We were finally choosing priorities instead of collecting them.",
+        "rawText": "Maya: That question changed the conversation. We were finally choosing priorities instead of collecting them."
+      },
+      {
+        "id": "cue-0013",
+        "startMs": 110000,
+        "endMs": 118500,
+        "text": "Interviewer: How did the team react to having fewer things on their plates?",
+        "rawText": "Interviewer: How did the team react to having fewer things on their plates?"
+      },
+      {
+        "id": "cue-0014",
+        "startMs": 119000,
+        "endMs": 128600,
+        "text": "Maya: At first, people worried it would look like we were doing less. Then they started getting their afternoons back.",
+        "rawText": "Maya: At first, people worried it would look like we were doing less. Then they started getting their afternoons back."
+      },
+      {
+        "id": "cue-0015",
+        "startMs": 129000,
+        "endMs": 139200,
+        "text": "Maya: A designer could finish a draft before moving to another brief. Feedback arrived while the work was still fresh.",
+        "rawText": "Maya: A designer could finish a draft before moving to another brief. Feedback arrived while the work was still fresh."
+      },
+      {
+        "id": "cue-0016",
+        "startMs": 139800,
+        "endMs": 148200,
+        "text": "Maya: The best part wasn't a number on a dashboard. It was hearing someone say, I know what matters today.",
+        "rawText": "Maya: The best part wasn't a number on a dashboard. It was hearing someone say, I know what matters today."
+      },
+      {
+        "id": "cue-0017",
+        "startMs": 148800,
+        "endMs": 155500,
+        "text": "Interviewer: What would you tell another small studio trying this?",
+        "rawText": "Interviewer: What would you tell another small studio trying this?"
+      },
+      {
+        "id": "cue-0018",
+        "startMs": 156000,
+        "endMs": 165800,
+        "text": "Maya: Start with the work you've already promised. Write down the next decision that would move each project forward.",
+        "rawText": "Maya: Start with the work you've already promised. Write down the next decision that would move each project forward."
+      },
+      {
+        "id": "cue-0019",
+        "startMs": 166200,
+        "endMs": 176000,
+        "text": "Maya: You don't need a perfect system. You need a shared view of what's happening and the courage to leave a little space.",
+        "rawText": "Maya: You don't need a perfect system. You need a shared view of what's happening and the courage to leave a little space."
+      },
+      {
+        "id": "cue-0020",
+        "startMs": 176600,
+        "endMs": 184500,
+        "text": "Maya: Busy is a feeling. Finished is something you can hand to another person.",
+        "rawText": "Maya: Busy is a feeling. Finished is something you can hand to another person."
+      }
+    ],
+    "warnings": []
+  },
+  "clips": [
+    {
+      "id": "sample-clip-1",
+      "title": "Busy isn't the same as finished",
+      "cueIds": [
+        "cue-0002",
+        "cue-0003",
+        "cue-0004"
+      ],
+      "hook": "We thought we needed more people. We needed fewer open projects.",
+      "broll": "Overlapping browser tabs; a crowded project board; a quiet studio desk.",
+      "notes": "Open on Maya. Hold half a beat after the last sentence. Keep the wording intact."
+    },
+    {
+      "id": "sample-clip-2",
+      "title": "Four cards. One clear priority.",
+      "cueIds": [
+        "cue-0010",
+        "cue-0011",
+        "cue-0012"
+      ],
+      "hook": "A simple question that made every new request a real decision.",
+      "broll": "Four paper cards on a wall. Close-up on the owner and next-decision fields.",
+      "notes": "Use the card wall as a visual thread. This clip can follow the first as a practical example."
+    }
+  ],
+  "updatedAt": "2026-01-01T00:00:00.000Z",
+  "sample": true
+}

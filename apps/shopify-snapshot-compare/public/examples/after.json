@@ -1,0 +1,282 @@
+{
+  "meta": {
+    "label": "Northline / Week 45",
+    "capturedAt": "2026-11-10T14:00:00Z",
+    "completeness": "complete",
+    "synthetic": true
+  },
+  "products": [
+    {
+      "store": "northline-goods.example",
+      "productId": "1001",
+      "title": "Shore ceramic mug",
+      "vendor": "Northline Goods",
+      "productType": "Home",
+      "url": "https://northline-goods.example/products/shore-ceramic-mug",
+      "currency": "CAD",
+      "priceMin": 42,
+      "priceMax": 42,
+      "available": true,
+      "onSale": true,
+      "maxDiscountPct": 12.5,
+      "variants": [
+        {
+          "variantId": "10001",
+          "title": "Original",
+          "sku": "NG-001",
+          "price": 42,
+          "compareAtPrice": 48,
+          "available": true
+        }
+      ]
+    },
+    {
+      "store": "northline-goods.example",
+      "productId": "1002",
+      "title": "Woven cotton throw",
+      "vendor": "Northline Goods",
+      "productType": "Textiles",
+      "url": "https://northline-goods.example/products/woven-cotton-throw",
+      "currency": "CAD",
+      "priceMin": 95,
+      "priceMax": 95,
+      "available": true,
+      "onSale": false,
+      "maxDiscountPct": 0,
+      "variants": [
+        {
+          "variantId": "10002",
+          "title": "Original",
+          "sku": "NG-002",
+          "price": 95,
+          "compareAtPrice": null,
+          "available": true
+        }
+      ]
+    },
+    {
+      "store": "northline-goods.example",
+      "productId": "1003",
+      "title": "Everyday canvas tote",
+      "vendor": "Northline Goods",
+      "productType": "Accessories",
+      "url": "https://northline-goods.example/products/everyday-canvas-tote",
+      "currency": "CAD",
+      "priceMin": 32,
+      "priceMax": 32,
+      "available": true,
+      "onSale": false,
+      "maxDiscountPct": 0,
+      "variants": [
+        {
+          "variantId": "10003",
+          "title": "Original",
+          "sku": "NG-003",
+          "price": 32,
+          "compareAtPrice": null,
+          "available": true
+        }
+      ]
+    },
+    {
+      "store": "northline-goods.example",
+      "productId": "1004",
+      "title": "Stoneware serving bowl",
+      "vendor": "Northline Goods",
+      "productType": "Home",
+      "url": "https://northline-goods.example/products/stoneware-serving-bowl",
+      "currency": "CAD",
+      "priceMin": 68,
+      "priceMax": 68,
+      "available": true,
+      "onSale": false,
+      "maxDiscountPct": 0,
+      "variants": [
+        {
+          "variantId": "10004",
+          "title": "Original",
+          "sku": "NG-004",
+          "price": 68,
+          "compareAtPrice": null,
+          "available": true
+        }
+      ]
+    },
+    {
+      "store": "northline-goods.example",
+      "productId": "1005",
+      "title": "Linen napkin set",
+      "vendor": "Northline Goods",
+      "productType": "Textiles",
+      "url": "https://northline-goods.example/products/linen-napkin-set",
+      "currency": "CAD",
+      "priceMin": 38,
+      "priceMax": 38,
+      "available": true,
+      "onSale": false,
+      "maxDiscountPct": 0,
+      "variants": [
+        {
+          "variantId": "10005",
+          "title": "Original",
+          "sku": "NG-005",
+          "price": 38,
+          "compareAtPrice": null,
+          "available": true
+        },
+        {
+          "variantId": "20005",
+          "title": "Sage",
+          "sku": "NG-005-S",
+          "price": 38,
+          "compareAtPrice": null,
+          "available": true
+        }
+      ]
+    },
+    {
+      "store": "northline-goods.example",
+      "productId": "1007",
+      "title": "Walnut serving board",
+      "vendor": "Northline Goods",
+      "productType": "Kitchen",
+      "url": "https://northline-goods.example/products/walnut-board",
+      "currency": "CAD",
+      "priceMin": 78,
+      "priceMax": 78,
+      "available": true,
+      "onSale": false,
+      "maxDiscountPct": 0,
+      "variants": [
+        {
+          "variantId": "10007",
+          "title": "Original",
+          "sku": "NG-007",
+          "price": 78,
+          "compareAtPrice": null,
+          "available": true
+        }
+      ]
+    },
+    {
+      "store": "northline-goods.example",
+      "productId": "1008",
+      "title": "Trail steel bottle",
+      "vendor": "Northline Goods",
+      "productType": "Accessories",
+      "url": "https://northline-goods.example/products/trail-steel-bottle",
+      "currency": "CAD",
+      "priceMin": 36,
+      "priceMax": 36,
+      "available": null,
+      "onSale": false,
+      "maxDiscountPct": 0,
+      "variants": [
+        {
+          "variantId": "10008",
+          "title": "Original",
+          "sku": "NG-008",
+          "price": 36,
+          "compareAtPrice": null,
+          "available": null
+        }
+      ]
+    },
+    {
+      "store": "northline-goods.example",
+      "productId": "1009",
+      "title": "Weekend cap",
+      "vendor": "Northline Goods",
+      "productType": "Accessories",
+      "url": "https://northline-goods.example/products/weekend-cap",
+      "currency": "CAD",
+      "priceMin": 28,
+      "priceMax": 28,
+      "available": true,
+      "onSale": false,
+      "maxDiscountPct": 0,
+      "variants": [
+        {
+          "variantId": "10009",
+          "title": "Original",
+          "sku": "NG-009",
+          "price": 28,
+          "compareAtPrice": null,
+          "available": true
+        }
+      ]
+    },
+    {
+      "store": "northline-goods.example",
+      "productId": "1010",
+      "title": "Glass water carafe",
+      "vendor": "Northline Goods",
+      "productType": "Kitchen",
+      "url": "https://northline-goods.example/products/glass-water-carafe",
+      "currency": "CAD",
+      "priceMin": 52,
+      "priceMax": 52,
+      "available": true,
+      "onSale": false,
+      "maxDiscountPct": 0,
+      "variants": [
+        {
+          "variantId": "10010",
+          "title": "Original",
+          "sku": "NG-010",
+          "price": 52,
+          "compareAtPrice": null,
+          "available": true
+        }
+      ]
+    },
+    {
+      "store": "northline-goods.example",
+      "productId": "1011",
+      "title": "Pebble catchall tray",
+      "vendor": "Northline Goods",
+      "productType": "Home",
+      "url": "https://northline-goods.example/products/pebble-catchall-tray",
+      "currency": "CAD",
+      "priceMin": 29,
+      "priceMax": 29,
+      "available": true,
+      "onSale": false,
+      "maxDiscountPct": 0,
+      "variants": [
+        {
+          "variantId": "10011",
+          "title": "Original",
+          "sku": "NG-011",
+          "price": 29,
+          "compareAtPrice": null,
+          "available": true
+        }
+      ]
+    },
+    {
+      "store": "northline-goods.example",
+      "productId": "1012",
+      "title": "Workshop cotton apron",
+      "vendor": "Northline Goods",
+      "productType": "Kitchen",
+      "url": "https://northline-goods.example/products/workshop-cotton-apron",
+      "currency": "CAD",
+      "priceMin": 54,
+      "priceMax": 54,
+      "available": true,
+      "onSale": false,
+      "maxDiscountPct": 0,
+      "variants": [
+        {
+          "variantId": "10012",
+          "title": "Original",
+          "sku": "NG-012",
+          "price": 54,
+          "compareAtPrice": null,
+          "available": true
+        }
+      ]
+    }
+  ]
+}

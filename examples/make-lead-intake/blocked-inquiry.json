@@ -1,0 +1,7 @@
+{
+  "event_id": "fictional-inquiry-002",
+  "privacy_cleared": false,
+  "name": "Alex Example",
+  "email": "alex@example.com",
+  "message": "This fictional inquiry should stop at the privacy filter."
+}

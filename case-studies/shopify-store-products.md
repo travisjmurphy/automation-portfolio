@@ -26,6 +26,6 @@ Potential uses include catalogue analysis, price comparisons, and checking which
 
 ## Evidence and repository scope
 
-This page documents the published Actor. It does not contain the Actor's source code or a dataset.
+This page documents the published Actor. The Actor's commercial source code is not included. The separate [Shopify Snapshot Compare](../apps/shopify-snapshot-compare) application contains public comparison logic, fictional example exports, and CSV/HTML reporting.
 
-The linked listing is the reference for current behaviour. Listing documentation reviewed November 9, 2026. This case study is not an independent execution or code audit.
+The linked listing is the reference for current behaviour. Listing documentation reviewed November 10, 2026. This case study is not an independent execution or code audit of the Actor.

@@ -21,6 +21,21 @@ The intended benefit is reducing repeated manual entry while keeping outbound co
 
 Tools used: **Make, Webhooks, Make Data Store, and Google Sheets**.
 
+```mermaid
+flowchart TD
+  A[Authenticated inquiry] --> B{Privacy cleared?}
+  B -->|No| C[Stop]
+  B -->|Yes| D{Event already recorded?}
+  D -->|Yes| E[Skip duplicate]
+  D -->|No| F[Reserve event]
+  F --> G[Write row and reply preview]
+  G --> H[Mark event complete]
+```
+
+### Reuse the documented design
+
+[Fictional inquiry examples and a verification checklist](../examples/make-lead-intake) are included for adapting the design. These new examples are illustrative; they are not a claim to reproduce the exact payloads used in the original pilot. The exact tested blueprint still needs to be exported from Make and sanitized before it can be distributed as an importable template.
+
 ## Test results
 
 - **Two distinct fictional inquiries:** each appeared exactly once.
