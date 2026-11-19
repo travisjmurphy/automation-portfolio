@@ -51,10 +51,11 @@ try {
       }
       const priceTarget=await page.waitForSelector(f.priceSelector,{timeout:10000,visible:true}).catch(()=>null);
       if(!priceTarget){console.log('LIVE UNAVAILABLE '+new URL(f.url).hostname+': price not visible');blocked++;continue;}
-      const visiblePrice=await priceTarget.evaluate(e=>e.innerText);
-      const vals=[...new Set((visiblePrice.match(/\d[\d,]*\.\d{2}/g)||[]).map(x=>x.replaceAll(',','')))];
-      if(vals.length!==1){console.log('LIVE UNAVAILABLE '+new URL(f.url).hostname+': ambiguous visible price');blocked++;continue;}
-      f.price=vals[0];
+      const rendered = await page.$eval(f.priceSelector, nodes => [...new Set(nodes.filter(e=>e.getClientRects().length && !e.closest('[hidden],[aria-hidden="true"]') && getComputedStyle(e).visibility==='visible').map(e=>e.innerText.trim()).filter(Boolean))]);
+      const plain = /^(?:CAD\s*)?\$?\s*([0-9,]+\.\d{2})(?:\s*CAD)?$/i;
+      const shown = rendered.map(s=>[...new Set(s.split(/\r?\n/).map(x=>x.trim()).filter(Boolean))]).filter(lines=>lines.length===1).map(lines=>lines[0].match(plain)?.[1]?.replaceAll(',','')).filter(Boolean);
+      f.price = shown.length===1 ? shown[0] : '';
+      console.log('LIVE RENDERED '+new URL(f.url).hostname+': '+JSON.stringify(rendered).slice(0,350));
     } else await page.goto(f.url+'?tracking=ignore#fragment');
     await page.bringToFront();
     assert.equal(new URL(page.url()).pathname,new URL(f.url).pathname);
@@ -72,6 +73,10 @@ try {
     assert.equal(await get('model'),f.model); if (!live) assert.equal(await get('currency'),'');
     assert.equal(await get('url'),f.url); assert.equal(new Date(ts).toISOString(),ts);
     assert.ok(Math.abs(Date.now()-Date.parse(ts))<60_000,'fresh capture timestamp');
+    if (live && !f.price) {
+      console.log('LIVE SAFE ABSTENTION '+new URL(f.url).hostname+': price not captured; no single explicit purchase price in primary visible wrapper.');
+      blocked++; await popup.keyboard.press('Escape'); continue;
+    }
     await popup.select('[name="currency"]','CAD');
     await popup.click('#save');
     rows.push([title,f.model,f.price,'CAD',f.url,ts]);
@@ -79,7 +84,7 @@ try {
     const stored=await popup.evaluate(()=>chrome.storage.local.get('shelfMatchObservations'));
     assert.deepEqual(stored.shelfMatchObservations.map(x=>[x.title,x.model,x.price,x.currency,x.url,x.capturedAt]),rows);
     if (live) console.log('LIVE PASS '+new URL(f.url).hostname+': '+f.model+' CAD '+f.price+' saved');
-    if (rows.length===2) {
+    if ((!live&&rows.length===2) || (live&&f===livePages.at(-1))) {
       await popup.click('#export');
       const end=Date.now()+10_000;
       while (!(await readdir(root)).includes(csvFile) && Date.now()<end) await delay(100);
@@ -91,7 +96,7 @@ try {
       await popup.waitForSelector('#capture',{hidden:true,timeout:2000}).catch(()=>{});
     }
   }
-  if(live) console.log('LIVE SUMMARY '+rows.length+' live pages captured; '+blocked+' unavailable; CSV '+(rows.length===2?'verified':'not checked'));
+  if(live) console.log('LIVE SUMMARY '+rows.length+' live pages captured; '+blocked+' unavailable; CSV checked where the last source yielded a saved row');
   else console.log('PASS: exact 0.1.1 loaded; two native action captures, real local storage, and byte-exact CSV verified against controlled fixtures.');
 } finally {
   await browser?.close();
