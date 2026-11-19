@@ -1,0 +1,26 @@
+name: Shelf Match Capture smoke
+on:
+  push:
+    branches: [shelf-match-chrome-smoke]
+    paths: ['qa/shelf-match/**']
+permissions:
+  contents: read
+jobs:
+  smoke:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - working-directory: qa/shelf-match
+        run: npm install --no-fund --no-audit --no-save puppeteer@25.12.0
+      - working-directory: qa/shelf-match
+        run: |
+          echo '512e8c1165b704c773c54cccad3cb4019f79c09d36a23c735677a9ef67188517  Shelf-Match-Capture-0.1.1.zip' | sha256sum -c -
+          unzip -t Shelf-Match-Capture-0.1.1.zip
+          unzip -q Shelf-Match-Capture-0.1.1.zip -d exact-extension
+          xvfb-run -a node shelf-smoke.mjs exact-extension
