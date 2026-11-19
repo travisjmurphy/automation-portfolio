@@ -23,15 +23,39 @@ try {
     {url:'https://www.canadiantire.ca/en/pdp/shelf-qa.html', title:'Drill &amp; driver', model:'QA-22', price:'359.99',
      markup:'<div id="nl-buy-box"><div data-testid="priceTotal">$359.99</div></div><div class="nl-features__information">Model: QA-22</div>'}
   ];
+  const live = process.argv.includes('--live');
+  const livePages = [
+    { url:'https://www.bestbuy.ca/en-ca/product/sony-wh-1000xm5-over-ear-noise-cancelling-bluetooth-headphones-black/16162187',model:'WH1000XM5/B',priceSelector:'[data-automation="product-pricing"] [data-automation="product-price"]'},
+    { url:'https://www.canadiantire.ca/en/pdp/dewalt-dcd996b-20v-max-xr-brushless-cordless-3-speed-hammer-drill-driver-tool-only-0548765p.html',model:'DCD996B',priceSelector:'#nl-buy-box [data-testid="priceTotal"]'}
+  ];
+  if(!live) {
   await page.setRequestInterception(true);
   page.on('request', req => {
     const f = fixtures.find(x=>req.url().split('?')[0]===x.url && req.isNavigationRequest());
     if (!f) { void req.abort(); return; }
     void req.respond({status:200,contentType:'text/html',body:'<!doctype html><html><main><h1 class="nl-product__title">'+f.title+'</h1>'+f.markup+'</main></html>'});
   });
+  }
   const rows=[];
-  for (const f of fixtures) {
-    await page.goto(f.url+'?tracking=ignore#fragment');
+  let blocked = 0;
+  for (const f of live ? livePages : fixtures) {
+    if(live) {
+      const resp=await page.goto(f.url,{waitUntil:'domcontentloaded',timeout:20000}).catch(err=>{console.log('LIVE UNAVAILABLE '+new URL(f.url).hostname+': '+err.message); return null;});
+      if(!resp || resp.status()>=400) {
+        if(resp)console.log('LIVE UNAVAILABLE '+new URL(f.url).hostname+': HTTP '+resp.status());
+        blocked++; continue;
+      }
+      const body=await page.$eval('body',e=>e.innerText.slice(0,1600)).catch(()=>'');
+      if(/verify you are human|checking your browser|just a moment|access denied|request blocked/i.test(body)){
+        console.log('LIVE BLOCKED '+new URL(f.url).hostname+': challenge or denial'); blocked++; continue;
+      }
+      const priceTarget=await page.waitForSelector(f.priceSelector,{timeout:10000,visible:true}).catch(()=>null);
+      if(!priceTarget){console.log('LIVE UNAVAILABLE '+new URL(f.url).hostname+': price not visible');blocked++;continue;}
+      const visiblePrice=await priceTarget.evaluate(e=>e.innerText);
+      const vals=[...new Set((visiblePrice.match(/\d[\d,]*\.\d{2}/g)||[]).map(x=>x.replaceAll(',','')))];
+      if(vals.length!==1){console.log('LIVE UNAVAILABLE '+new URL(f.url).hostname+': ambiguous visible price');blocked++;continue;}
+      f.price=vals[0];
+    } else await page.goto(f.url+'?tracking=ignore#fragment');
     await page.bringToFront();
     assert.equal(new URL(page.url()).pathname,new URL(f.url).pathname);
     const title=await page.$eval('h1',e=>e.innerText);
@@ -45,7 +69,7 @@ try {
     const get=name=>popup.$eval('[name="'+name+'"]',el=>el.value);
     const ts=await get('capturedAt');
     assert.equal(await get('title'),title); assert.equal(await get('price'),f.price);
-    assert.equal(await get('model'),f.model); assert.equal(await get('currency'),'');
+    assert.equal(await get('model'),f.model); if (!live) assert.equal(await get('currency'),'');
     assert.equal(await get('url'),f.url); assert.equal(new Date(ts).toISOString(),ts);
     assert.ok(Math.abs(Date.now()-Date.parse(ts))<60_000,'fresh capture timestamp');
     await popup.select('[name="currency"]','CAD');
@@ -54,6 +78,7 @@ try {
     await popup.waitForFunction(n => document.querySelector('#count')?.textContent===n+' saved',{timeout:10000},rows.length);
     const stored=await popup.evaluate(()=>chrome.storage.local.get('shelfMatchObservations'));
     assert.deepEqual(stored.shelfMatchObservations.map(x=>[x.title,x.model,x.price,x.currency,x.url,x.capturedAt]),rows);
+    if (live) console.log('LIVE PASS '+new URL(f.url).hostname+': '+f.model+' CAD '+f.price+' saved');
     if (rows.length===2) {
       await popup.click('#export');
       const end=Date.now()+10_000;
@@ -66,7 +91,8 @@ try {
       await popup.waitForSelector('#capture',{hidden:true,timeout:2000}).catch(()=>{});
     }
   }
-  console.log('PASS: exact 0.1.1 loaded; two native action captures, real local storage, and byte-exact CSV verified against controlled fixtures.');
+  if(live) console.log('LIVE SUMMARY '+rows.length+' live pages captured; '+blocked+' unavailable; CSV '+(rows.length===2?'verified':'not checked'));
+  else console.log('PASS: exact 0.1.1 loaded; two native action captures, real local storage, and byte-exact CSV verified against controlled fixtures.');
 } finally {
   await browser?.close();
   await rm(root,{recursive:true,force:true});
