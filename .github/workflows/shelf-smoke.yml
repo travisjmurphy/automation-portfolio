@@ -2,7 +2,7 @@ name: Shelf Match Capture smoke
 on:
   push:
     branches: [shelf-match-chrome-smoke]
-    paths: ['qa/shelf-match/**']
+    paths: ['qa/shelf-match/Shelf-Match-Capture-0.1.1.zip.base64']
 permissions:
   contents: read
 jobs:
@@ -20,6 +20,7 @@ jobs:
         run: npm install --no-fund --no-audit --no-save puppeteer@25.12.0
       - working-directory: qa/shelf-match
         run: |
+          base64 --decode Shelf-Match-Capture-0.1.1.zip.base64 > Shelf-Match-Capture-0.1.1.zip
           echo '512e8c1165b704c773c54cccad3cb4019f79c09d36a23c735677a9ef67188517  Shelf-Match-Capture-0.1.1.zip' | sha256sum -c -
           unzip -t Shelf-Match-Capture-0.1.1.zip
           unzip -q Shelf-Match-Capture-0.1.1.zip -d exact-extension
