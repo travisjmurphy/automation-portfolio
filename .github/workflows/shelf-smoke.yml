@@ -30,4 +30,4 @@ jobs:
         working-directory: qa/shelf-match
         run: xvfb-run -a node shelf-smoke.mjs exact-extension --live
 
-# Only explicitly marked pushes run the bounded live diagnostic.
+# Only explicitly marked QA pushes run the bounded live diagnostic.
