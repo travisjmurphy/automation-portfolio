@@ -2,12 +2,12 @@ name: Shelf Match Capture smoke
 on:
   push:
     branches: [shelf-match-chrome-smoke]
-    paths: ['qa/shelf-match/Shelf-Match-Capture-0.1.1.zip.base64']
+    paths: ['qa/shelf-match/Shelf-Match-Capture-0.1.1.zip.base64', '.github/workflows/shelf-smoke.yml']
 permissions:
   contents: read
 jobs:
   smoke:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
