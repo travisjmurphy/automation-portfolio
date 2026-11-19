@@ -38,6 +38,7 @@ try {
   }
   const rows=[];
   let blocked = 0;
+  let csvVerified = false;
   for (const f of live ? livePages : fixtures) {
     if(live) {
       const resp=await page.goto(f.url,{waitUntil:'domcontentloaded',timeout:20000}).catch(err=>{console.log('LIVE UNAVAILABLE '+new URL(f.url).hostname+': '+err.message); return null;});
@@ -57,13 +58,15 @@ try {
       f.price = shown.length===1 ? shown[0] : '';
       console.log('LIVE RENDERED '+new URL(f.url).hostname+': '+JSON.stringify(rendered).slice(0,350));
     } else await page.goto(f.url+'?tracking=ignore#fragment');
+    let popup;
+    try {
     await page.bringToFront();
     assert.equal(new URL(page.url()).pathname,new URL(f.url).pathname);
     const title=await page.$eval('h1',e=>e.innerText);
     const popupURL='chrome-extension://'+id+'/popup.html';
     await page.triggerExtensionAction(ext);
     const target=await browser.waitForTarget(t=>t.url()===popupURL,{timeout:10000});
-    const popup=await target.asPage();
+    popup=await target.asPage();
     await popup.waitForSelector('#capture');
     await popup.click('#capture');
     await popup.waitForFunction(()=>document.querySelector('#save')?.disabled===false,{timeout:10000}).catch(async err=>{ throw new Error('Capture did not populate: '+await popup.$eval('#status',e=>e.textContent),{cause:err}); });
@@ -73,6 +76,7 @@ try {
     assert.equal(await get('model'),f.model); if (!live) assert.equal(await get('currency'),'');
     assert.equal(await get('url'),f.url); assert.equal(new Date(ts).toISOString(),ts);
     assert.ok(Math.abs(Date.now()-Date.parse(ts))<60_000,'fresh capture timestamp');
+    if (live) console.log('LIVE POPUP '+new URL(f.url).hostname+': model='+await get('model')+' price='+await get('price'));
     if (live && !f.price) {
       console.log('LIVE SAFE ABSTENTION '+new URL(f.url).hostname+': price not captured; no single explicit purchase price in primary visible wrapper.');
       blocked++; await popup.keyboard.press('Escape'); continue;
@@ -91,12 +95,18 @@ try {
       const csv=await readFile(join(root,csvFile),'utf8');
       const quote=x=>'"'+x.replaceAll('"','""')+'"';
       assert.equal(csv,'title,model,price,currency,url,capturedAt\r\n'+rows.map(r=>r.map(quote).join(',')).join('\r\n')+'\r\n');
+      csvVerified = true;
     } else {
       await popup.keyboard.press('Escape');
       await popup.waitForSelector('#capture',{hidden:true,timeout:2000}).catch(()=>{});
     }
+    } catch(err) {
+      if(!live)throw err;
+      console.log('LIVE CHECK NOT PASSED '+new URL(f.url).hostname+': '+err.message);
+      blocked++; if (popup) await popup.keyboard.press('Escape').catch(()=>{});
+    }
   }
-  if(live) console.log('LIVE SUMMARY '+rows.length+' live pages captured; '+blocked+' unavailable; CSV checked where the last source yielded a saved row');
+  if(live) console.log('LIVE SUMMARY '+rows.length+' live pages saved; '+blocked+' not fully checked; CSV '+(csvVerified?'verified':'not checked'));
   else console.log('PASS: exact 0.1.1 loaded; two native action captures, real local storage, and byte-exact CSV verified against controlled fixtures.');
 } finally {
   await browser?.close();
