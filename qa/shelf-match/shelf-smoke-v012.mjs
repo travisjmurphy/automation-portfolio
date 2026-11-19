@@ -57,12 +57,6 @@ try {
       const shown = rendered.map(s=>[...new Set(s.split(/\r?\n/).map(x=>x.trim()).filter(Boolean))]).filter(lines=>lines.length===1).map(lines=>lines[0].match(plain)?.[1]?.replaceAll(',','')).filter(Boolean);
       f.price = shown.length===1 ? shown[0] : '';
       console.log('LIVE RENDERED '+new URL(f.url).hostname+': '+JSON.stringify(rendered).slice(0,350));
-      const priceMarkers=await page.$eval(f.priceSelector, nodes=>nodes.filter(e=>e.getClientRects().length).slice(0,8).map(e=>({
-        text:e.innerText.trim().slice(0,100), hidden:!!e.closest('[hidden],[aria-hidden="true"]'),
-        positiveArea:[...e.getClientRects()].some(r=>r.width&&r.height), decoration:getComputedStyle(e).textDecorationLine,
-        excludedBy:e.closest('del,s,strike,[data-price-type="original"],[data-price-type="regular"],[data-price-type="was"],[data-price-type="financing"],[data-price-type="savings"],[data-testid="originalPrice"],[data-testid="regularPrice"],[data-testid="wasPrice"],[data-testid="financingPrice"],[data-testid="savingsPrice"]')?.getAttribute('data-testid')||null
-      })));
-      console.log('LIVE PRICE MARKERS '+JSON.stringify(priceMarkers));
     } else await page.goto(f.url+'?tracking=ignore#fragment');
     let popup;
     try {
