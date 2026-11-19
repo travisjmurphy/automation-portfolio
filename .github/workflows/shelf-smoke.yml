@@ -2,7 +2,7 @@ name: Shelf Match Capture smoke
 on:
   push:
     branches: [shelf-match-chrome-smoke]
-    paths: ['qa/shelf-match/Shelf-Match-Capture-0.1.2.zip.base64']
+    paths: ['qa/shelf-match/Shelf-Match-Capture-0.1.2.zip.base64', '.github/workflows/shelf-smoke.yml']
 permissions:
   contents: read
 jobs:
