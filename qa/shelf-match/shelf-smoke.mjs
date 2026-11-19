@@ -52,7 +52,7 @@ try {
       }
       const priceTarget=await page.waitForSelector(f.priceSelector,{timeout:10000,visible:true}).catch(()=>null);
       if(!priceTarget){console.log('LIVE UNAVAILABLE '+new URL(f.url).hostname+': price not visible');blocked++;continue;}
-      const rendered = await page.$eval(f.priceSelector, nodes => [...new Set(nodes.filter(e=>e.getClientRects().length && !e.closest('[hidden],[aria-hidden="true"]') && getComputedStyle(e).visibility==='visible').map(e=>e.innerText.trim()).filter(Boolean))]);
+      const rendered = await page.$$eval(f.priceSelector, nodes => [...new Set(nodes.filter(e=>e.getClientRects().length && !e.closest('[hidden],[aria-hidden="true"]') && getComputedStyle(e).visibility==='visible').map(e=>e.innerText.trim()).filter(Boolean))]);
       const plain = /^(?:CAD\s*)?\$?\s*([0-9,]+\.\d{2})(?:\s*CAD)?$/i;
       const shown = rendered.map(s=>[...new Set(s.split(/\r?\n/).map(x=>x.trim()).filter(Boolean))]).filter(lines=>lines.length===1).map(lines=>lines[0].match(plain)?.[1]?.replaceAll(',','')).filter(Boolean);
       f.price = shown.length===1 ? shown[0] : '';
