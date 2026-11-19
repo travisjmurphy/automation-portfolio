@@ -25,3 +25,7 @@ jobs:
           unzip -t Shelf-Match-Capture-0.1.1.zip
           unzip -q Shelf-Match-Capture-0.1.1.zip -d exact-extension
           xvfb-run -a node shelf-smoke.mjs exact-extension
+      - name: One-shot read-only live retailer check
+        if: contains(github.event.head_commit.message, '[live-once]')
+        working-directory: qa/shelf-match
+        run: xvfb-run -a node shelf-smoke.mjs exact-extension --live
