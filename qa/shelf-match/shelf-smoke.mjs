@@ -9,7 +9,7 @@ const root = await mkdtemp(join(tmpdir(), 'shelf-qa-'));
 const csvFile = 'shelf-match-observations.csv';
 let browser;
 try {
-  browser = await puppeteer.launch({headless:false, pipe:true, enableExtensions:true,
+  browser = await puppeteer.launch({headless:false, dumpio:true, pipe:true, enableExtensions:true,
     userDataDir:join(root,'profile')});
   await browser.defaultBrowserContext().setDownloadBehavior({policy:'allow',downloadPath:root});
   const id = await browser.installExtension(resolve(process.argv[2]));
